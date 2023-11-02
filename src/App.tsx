@@ -1,10 +1,15 @@
-import React from "react";
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Landing from './pages/Landing';
 
 const App = () => {
   return (
-    <>
-      <div>Happy</div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Landing />} />
+        <Route path='*' element={<>404 NOT FOUND</>} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
