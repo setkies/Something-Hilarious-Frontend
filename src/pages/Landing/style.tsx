@@ -50,6 +50,28 @@ export const Title = styled.div`
 //   }
 // `;
 
+export const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 46px;
+`;
+
 export const Button = styled(Link)`
   cursor: pointer;
+  width: 220px;
+  height: 56px;
+  border-radius: 10px;
+  color: ${theme.black};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${font.$Button2};
+  border: 2px solid ${theme.grey[300]};
+  &:hover {
+    background-color: ${theme.grey[300]};
+    color: ${theme.rose};
+  }
+  transition: 0.5s ease-in-out;
 `;

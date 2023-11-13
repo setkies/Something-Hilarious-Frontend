@@ -36,3 +36,5 @@ function flex(
     `;
   }
 }
+
+export default flex;
