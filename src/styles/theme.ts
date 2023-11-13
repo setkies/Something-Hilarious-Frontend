@@ -17,6 +17,7 @@ const grey = {
 
 const red = '#FF0000';
 const orange = '#F4493C';
+const rose = '#F43F5E';
 
 export default {
   primary,
@@ -25,4 +26,5 @@ export default {
   white,
   red,
   orange,
+  rose,
 };
