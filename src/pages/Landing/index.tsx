@@ -24,7 +24,7 @@ const Landing = () => {
           >
             프로젝트 등록하러 가기
           </S.Button>
-          <S.Button to='login'>SINP 가입하기</S.Button>
+          <S.Button to='signup'>SINP 가입하기</S.Button>
         </S.Buttons>
       </S.Contents>
     </S.Container>
