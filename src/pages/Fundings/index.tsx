@@ -6,16 +6,18 @@ const Funding = () => {
   return (
     <S.Container>
       <Header />
-      <S.Wrapper>
-        <FundingCard />
-        <FundingCard />
-        <FundingCard />
-        <FundingCard />
-        <FundingCard />
-        <FundingCard />
-        <FundingCard />
-        <FundingCard />
-      </S.Wrapper>
+      <S.ProjectList>
+        <S.Wrapper>
+          <FundingCard />
+          <FundingCard />
+          <FundingCard />
+          <FundingCard />
+          <FundingCard />
+          <FundingCard />
+          <FundingCard />
+          <FundingCard />
+        </S.Wrapper>
+      </S.ProjectList>
     </S.Container>
   );
 };

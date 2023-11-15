@@ -5,6 +5,12 @@ export const Container = styled.div`
   height: 100vh;
 `;
 
+export const ProjectList = styled.div`
+  display: flex;
+  gap: 36px;
+  flex-direction: column;
+`;
+
 export const Wrapper = styled.div`
   width: 100%;
   padding: 100px 100px;
