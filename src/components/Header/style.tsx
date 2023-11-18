@@ -35,4 +35,7 @@ export const Elements = styled.div`
 export const Element = styled(Link)`
   ${font.$p1};
   color: black;
+  :hover {
+    color: ${theme.rose};
+  }
 `;

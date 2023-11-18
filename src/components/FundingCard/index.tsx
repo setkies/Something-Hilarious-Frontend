@@ -1,18 +1,26 @@
+import * as React from 'react';
 import * as S from './style';
+import { useNavigate } from 'react-router-dom';
 
-const FundingCard = () => {
+interface FundingCardProps {
+  data: { title: string; description: string; id: number };
+}
+
+const FundingCard: React.FC<FundingCardProps> = ({ data }) => {
+  const navigate = useNavigate();
+
+  const goToDetail = () => {
+    navigate(`/detail/${data.id}`);
+  };
+
   return (
-    <S.Container>
+    <S.Container onClick={goToDetail}>
       <S.ImageContainer>
         <S.Image />
       </S.ImageContainer>
       <S.InfoContainer>
-        <S.Title>
-          [단독공개 | 눈내리는케이크] 크리스마스를 위한 홍대케이크맛집
-        </S.Title>
-        <S.Description>
-          [누적 2.5억] 겨울에는 따뜻하게 달궈드리겠습니다. 사갓 캠핑 쉘터
-        </S.Description>
+        <S.Title>{data.title}</S.Title>
+        <S.Description>{data.description}</S.Description>
       </S.InfoContainer>
     </S.Container>
   );

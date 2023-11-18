@@ -1,21 +1,18 @@
+import * as React from 'react';
 import Header from 'components/Header';
 import * as S from './style';
 import FundingCard from 'components/FundingCard';
+import dummyData from 'fixtures/funding.dummy';
 
-const Funding = () => {
+const Funding: React.FC = () => {
   return (
     <S.Container>
       <Header />
       <S.ProjectList>
         <S.Wrapper>
-          <FundingCard />
-          <FundingCard />
-          <FundingCard />
-          <FundingCard />
-          <FundingCard />
-          <FundingCard />
-          <FundingCard />
-          <FundingCard />
+          {dummyData.map((data, index) => (
+            <FundingCard key={index} data={data} />
+          ))}
         </S.Wrapper>
       </S.ProjectList>
     </S.Container>
