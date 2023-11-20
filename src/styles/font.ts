@@ -9,7 +9,6 @@ const fontGenerator = (weight: number, size: number, lineHeight: number) => `
       line-height: ${lineHeight}%;
       letter-spacing: 0px;
       `;
-
 export const font = {
   $D1: fontGenerator(Bold, 72, 120),
   $D2: fontGenerator(Bold, 64, 120),
