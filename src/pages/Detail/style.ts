@@ -38,6 +38,9 @@ export const Description = styled.p`
 export const Wrapper = styled.div`
   width: 50%;
   height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const Content = styled.div`

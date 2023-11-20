@@ -27,10 +27,10 @@ export const ModalBox = styled.div`
   height: fit-content;
   z-index: 20;
   transform: translate(-50%, -50%);
-
   ${({ hidden }) =>
     hidden &&
     css`
       display: none;
     `}
+  border-radius: 15px;
 `;

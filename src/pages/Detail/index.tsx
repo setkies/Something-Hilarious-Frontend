@@ -4,9 +4,18 @@ import Header from 'components/Header';
 import * as S from './style';
 import dummyData from 'fixtures/funding.dummy';
 import theme from 'styles/theme';
+import useModal from 'hooks/useModal';
+import FundingModal from 'components/FundingModal';
 
 const Detail: React.FC = () => {
+  const { openModal, closeModal } = useModal();
   const { id } = useParams<{ id: string }>();
+
+  const modalOpen = () => {
+    openModal({
+      component: <FundingModal closeModal={closeModal} />,
+    });
+  };
 
   if (!id) {
     return (
@@ -40,15 +49,19 @@ const Detail: React.FC = () => {
         <S.Thumbnail />
         <S.Wrapper>
           <S.Title>{selectedData.title}</S.Title>
-          <S.Description>{selectedData.description}</S.Description>
-          <S.Progresses>
-            <S.Progress>{selectedData.people}명 참가중</S.Progress>
-            <S.Progress style={{ color: theme.black }}>
-              ({fundraising}원)
-            </S.Progress>
-          </S.Progresses>
-          <S.Horizon />
-          <S.Button>지금 펀딩하기</S.Button>
+          <div>
+            <S.Description>{selectedData.description}</S.Description>
+            <S.Progresses>
+              <S.Progress>{selectedData.people}명 참가중</S.Progress>
+              <S.Progress style={{ color: theme.black }}>
+                ({fundraising}원)
+              </S.Progress>
+            </S.Progresses>
+          </div>
+          <div>
+            <S.Horizon />
+            <S.Button onClick={modalOpen}>지금 펀딩하기</S.Button>
+          </div>
         </S.Wrapper>
       </S.Contents>
     </S.Container>
