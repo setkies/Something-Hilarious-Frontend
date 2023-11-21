@@ -36,7 +36,7 @@ export const Description = styled.p`
 `;
 
 export const Wrapper = styled.div`
-  width: 50%;
+  width: 40%;
   height: 350px;
   display: flex;
   flex-direction: column;
