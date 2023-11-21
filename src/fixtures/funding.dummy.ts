@@ -4,7 +4,7 @@ interface FundingData {
   id: number;
   people: number;
   fundraising: number;
-  author: string; // 'author' 속성 추가
+  author: string;
 }
 
 const dummyData: FundingData[] = [
