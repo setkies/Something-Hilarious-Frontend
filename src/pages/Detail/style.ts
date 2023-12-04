@@ -11,7 +11,6 @@ export const Container = styled.div`
 `;
 
 export const Contents = styled.div`
-  width: 70%;
   padding-top: 70px;
   box-sizing: border-box;
   display: flex;
@@ -36,7 +35,7 @@ export const Description = styled.p`
 `;
 
 export const Wrapper = styled.div`
-  width: 50%;
+  width: 40%;
   height: 350px;
   display: flex;
   flex-direction: column;
@@ -71,4 +70,12 @@ export const Button = styled.button`
   color: ${theme.white};
   border-radius: 10px;
   ${font.$Button1};
+`;
+
+export const DescriptionImg = styled.img`
+  width: 100%;
+`;
+
+export const Explanation = styled.div`
+  width: 100%;
 `;
