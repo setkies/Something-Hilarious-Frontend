@@ -6,6 +6,7 @@ import dummyData from 'fixtures/funding.dummy';
 import theme from 'styles/theme';
 import useModal from 'hooks/useModal';
 import FundingModal from 'components/FundingModal';
+// import testImg from 'assets/jpegs/test.jpeg';
 
 const Detail: React.FC = () => {
   const { openModal, closeModal } = useModal();
@@ -63,6 +64,9 @@ const Detail: React.FC = () => {
             <S.Button onClick={modalOpen}>지금 펀딩하기</S.Button>
           </div>
         </S.Wrapper>
+        {/* <S.Explanation>
+          <S.DescriptionImg src={testImg} />
+        </S.Explanation> */}
       </S.Contents>
     </S.Container>
   );

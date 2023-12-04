@@ -18,6 +18,7 @@ const MyPage = () => {
         </S.Wallets>
         <S.Horizon />
         <S.Title>{dummyData[0].author} 님의 프로젝트</S.Title>
+        <S.Projects></S.Projects>
       </S.Contents>
     </S.Contaienr>
   );

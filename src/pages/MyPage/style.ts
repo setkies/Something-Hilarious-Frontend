@@ -49,3 +49,10 @@ export const Horizon = styled.div`
   background-color: ${theme.grey[400]};
   margin: 50px 0;
 `;
+
+export const Projects = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 45px;
+  flex-wrap: wrap;
+`;
