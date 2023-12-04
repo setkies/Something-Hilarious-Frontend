@@ -1,5 +1,5 @@
 import theme from 'styles/theme';
-import Header from '../../components/Header';
+import Header from 'components/Header';
 import * as S from './style';
 
 const Landing = () => {
@@ -27,6 +27,7 @@ const Landing = () => {
           <S.Button to='signup'>SINP 가입하기</S.Button>
         </S.Buttons>
       </S.Contents>
+      <img />
     </S.Container>
   );
 };
