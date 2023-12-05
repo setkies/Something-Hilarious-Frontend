@@ -11,7 +11,6 @@ export const Container = styled.div`
 `;
 
 export const Contents = styled.div`
-  width: 70%;
   padding-top: 70px;
   box-sizing: border-box;
   display: flex;
