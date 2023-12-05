@@ -43,4 +43,23 @@ export const Input = styled.input`
   height: 66px;
   border-radius: 10px;
   border: 1px solid ${theme.grey[400]};
+  padding-left: 24px;
+  box-sizing: border-box;
+  &::placeholder {
+    ${font.$Body3};
+    color: ${theme.grey[400]};
+  }
+`;
+
+export const TextArea = styled.textarea`
+  width: 100%;
+  height: 260px;
+  resize: none;
+  border: 1px solid ${theme.grey[400]};
+  border-radius: 10px;
+  margin-bottom: 16px;
+  &::placeholder {
+    ${font.$Body3};
+    color: ${theme.grey[400]};
+  }
 `;

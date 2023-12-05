@@ -18,7 +18,9 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
       {tab ? (
         <S.ModalContents>
           <S.Body>프로젝트 이름</S.Body>
-          <S.Input />
+          <S.Input placeholder='이름 입력해주세요.' />
+          <S.Body>프로젝트 설명</S.Body>
+          <S.TextArea />
           <S.Wrapper>
             <div />
             <div />
