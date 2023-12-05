@@ -20,7 +20,7 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
           <S.Body>프로젝트 이름</S.Body>
           <S.Input placeholder='이름 입력해주세요.' />
           <S.Body>프로젝트 설명</S.Body>
-          <S.TextArea />
+          <S.TextArea placeholder='프로젝트에 대한 설명을 입력해주세요.' />
           <S.Wrapper>
             <div />
             <div />

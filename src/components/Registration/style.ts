@@ -43,8 +43,6 @@ export const Input = styled.input`
   height: 66px;
   border-radius: 10px;
   border: 1px solid ${theme.grey[400]};
-  padding-left: 24px;
-  box-sizing: border-box;
   &::placeholder {
     ${font.$Body3};
     color: ${theme.grey[400]};
