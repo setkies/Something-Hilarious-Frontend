@@ -39,3 +39,7 @@ export const Element = styled(Link)`
     color: ${theme.rose};
   }
 `;
+
+export const P1 = styled.p`
+  ${font.$p1};
+`;
