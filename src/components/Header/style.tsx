@@ -42,4 +42,5 @@ export const Element = styled(Link)`
 
 export const P1 = styled.p`
   ${font.$p1};
+  cursor: pointer;
 `;
