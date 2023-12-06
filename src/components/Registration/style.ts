@@ -61,3 +61,23 @@ export const TextArea = styled.textarea`
     color: ${theme.grey[400]};
   }
 `;
+
+export const UploadImage = styled.div`
+  width: 100%;
+  height: 150px;
+  border-radius: 5px;
+  background-color: ${theme.grey[400]};
+  margin-bottom: 30px;
+  position: relative;
+`;
+
+export const ImageLabel = styled.label`
+  width: 100%;
+  height: 100%;
+  background-color: ${theme.grey[400]};
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;

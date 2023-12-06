@@ -7,7 +7,26 @@ interface GenerateModalProps {
 }
 
 const Registration = ({ closeModal }: GenerateModalProps) => {
-  const [tab, setTab] = useState(true);
+  const [tab, setTab] = useState<boolean>(true);
+  const [selectedThumbnale, setselectedThumbnale] = useState<string>('');
+  const [selectedImage, setselectedImage] = useState<string>('');
+
+  const handleThumbnaleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setselectedThumbnale(file.name);
+    }
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setselectedImage(file.name);
+    }
+  };
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -31,6 +50,30 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
         </S.ModalContents>
       ) : (
         <S.ModalContents>
+          <S.Body>썸네일 업로드</S.Body>
+          <S.UploadImage>
+            <S.ImageLabel htmlFor='file1'>
+              {selectedThumbnale || '파일 선택하기'}
+            </S.ImageLabel>
+            <input
+              type='file'
+              id='file1'
+              onChange={handleThumbnaleChange}
+              style={{ display: 'none' }}
+            />
+          </S.UploadImage>
+          <S.Body>썸네일 업로드</S.Body>
+          <S.UploadImage>
+            <S.ImageLabel htmlFor='file2'>
+              {selectedImage || '파일 선택하기'}
+            </S.ImageLabel>
+            <input
+              type='file'
+              id='file2'
+              onChange={handleImageChange}
+              style={{ display: 'none' }}
+            />
+          </S.UploadImage>
           <S.Button onClick={() => setTab((prev) => !prev)}>이전으로</S.Button>
         </S.ModalContents>
       )}
