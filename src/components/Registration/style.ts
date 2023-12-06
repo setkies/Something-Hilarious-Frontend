@@ -69,6 +69,9 @@ export const UploadImage = styled.div`
   background-color: ${theme.grey[400]};
   margin-bottom: 30px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const ImageLabel = styled.label`
@@ -78,6 +81,9 @@ export const ImageLabel = styled.label`
   border-radius: 10px;
   display: flex;
   align-items: center;
-  justify-content: center;
   cursor: pointer;
+`;
+
+export const InputImage = styled.img`
+  height: 100%;
 `;

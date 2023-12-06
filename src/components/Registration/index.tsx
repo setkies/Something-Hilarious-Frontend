@@ -16,14 +16,14 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
   ) => {
     const file = event.target.files?.[0];
     if (file) {
-      setselectedThumbnale(file.name);
+      setselectedThumbnale(URL.createObjectURL(file));
     }
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setselectedImage(file.name);
+      setselectedImage(URL.createObjectURL(file));
     }
   };
 
@@ -52,8 +52,13 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
         <S.ModalContents>
           <S.Body>썸네일 업로드</S.Body>
           <S.UploadImage>
+            <S.Body style={{ background: 'none', cursor: 'pointer' }}>
+              프로젝트 썸네일을 업로드해주세요.
+            </S.Body>
             <S.ImageLabel htmlFor='file1'>
-              {selectedThumbnale || '파일 선택하기'}
+              {<S.InputImage src={selectedThumbnale} /> || (
+                <h1>파일 선택하기</h1>
+              )}
             </S.ImageLabel>
             <input
               type='file'
@@ -62,10 +67,13 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
               style={{ display: 'none' }}
             />
           </S.UploadImage>
-          <S.Body>썸네일 업로드</S.Body>
+          <S.Body>추가 사진</S.Body>
           <S.UploadImage>
+            <S.Body style={{ background: 'none', cursor: 'pointer' }}>
+              추가로 이미지를 업로드해주세요.
+            </S.Body>
             <S.ImageLabel htmlFor='file2'>
-              {selectedImage || '파일 선택하기'}
+              {<S.InputImage src={selectedImage} /> || '파일 선택하기'}
             </S.ImageLabel>
             <input
               type='file'
@@ -74,7 +82,13 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
               style={{ display: 'none' }}
             />
           </S.UploadImage>
-          <S.Button onClick={() => setTab((prev) => !prev)}>이전으로</S.Button>
+          <S.Wrapper>
+            <S.Button onClick={() => setTab((prev) => !prev)}>
+              이전으로
+            </S.Button>
+            <div />
+            <S.Button>등록하기</S.Button>
+          </S.Wrapper>
         </S.ModalContents>
       )}
     </S.Container>
