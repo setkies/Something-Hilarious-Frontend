@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: qlido/sinpf:lastest
+    image: qlido/sinpf
     ports:
       - "3000:80"
     environment:
