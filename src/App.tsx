@@ -7,6 +7,7 @@ import Detail from 'pages/Detail';
 import { RecoilRoot } from 'recoil';
 import Modal from 'components/Modal';
 import MyPage from 'pages/MyPage';
+import Auth from './pages/auth';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path='/funding' element={<Funding />} />
           <Route path='/detail/:id' element={<Detail />} />
           <Route path='/mypage' element={<MyPage />} />
+          <Route path='/auth/google' element={<Auth />} />
           <Route path='*' element={<>404 NOT FOUND</>} />
         </Routes>
       </BrowserRouter>
