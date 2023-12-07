@@ -39,7 +39,7 @@ jobs:
 
     # Docker Hub push (4)
     - name: docker Hub push
-      run: docker push qlido/sinp
+      run: docker push qlido/sinpf
 
     - name: Connect to WAS & Execute Application
       uses: appleboy/ssh-action@v0.1.6
