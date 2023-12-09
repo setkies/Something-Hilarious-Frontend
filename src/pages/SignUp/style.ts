@@ -40,7 +40,7 @@ export const Wraaper = styled.div`
   align-items: center;
 `;
 
-export const Google = styled.div`
+export const Google = styled.a`
   cursor: pointer;
   width: 90%;
   height: 10%;

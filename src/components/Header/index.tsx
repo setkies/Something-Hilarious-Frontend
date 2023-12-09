@@ -3,8 +3,12 @@ import * as S from './style';
 import { Link } from 'react-router-dom';
 import useModal from 'hooks/useModal';
 import Registration from 'components/Registration';
+  
+import { useRecoilValue } from 'recoil';
+import userStore from 'store/user.store';
 
 const Header = () => {
+  const user = useRecoilValue(userStore);
   const { openModal, closeModal } = useModal();
 
   const modalOpen = () => {
@@ -21,7 +25,11 @@ const Header = () => {
         <S.Element to='/funding'>Funding</S.Element>
         <S.P1 onClick={modalOpen}>Registration</S.P1>
       </S.Elements>
-      <S.Button to='/signup'>SignUp</S.Button>
+      {user ? (
+        <S.Button to='/mypage'>My Page</S.Button>
+      ) : (
+        <S.Button to='/signup'>Sign Up</S.Button>
+      )}
     </S.Container>
   );
 };
