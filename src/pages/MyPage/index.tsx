@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from 'components/Header';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import userStore from 'store/user.store';
+import { instance } from 'apis';
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -18,6 +19,12 @@ const MyPage = () => {
     localStorage.clear();
     window.location.reload();
   };
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await instance.get('/project/me');
+    })();
+  }, []);
 
   return (
     <S.Contaienr>
