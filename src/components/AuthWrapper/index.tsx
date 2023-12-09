@@ -13,8 +13,8 @@ const AuthWrapper = ({ children }: Props) => {
     try {
       (async () => {
         const { data } = await instance.get('/user');
-        if (data?.userData) {
-          setUser(data.userData);
+        if (data) {
+          setUser(data);
         }
       })();
     } catch (err) {

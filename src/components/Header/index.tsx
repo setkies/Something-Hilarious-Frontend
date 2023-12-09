@@ -16,9 +16,9 @@ const Header = () => {
         <S.Element to='Registration'>Registration</S.Element>
       </S.Elements>
       {user ? (
-        <S.Button to='/mypage'>My Page</S.Button>
-      ) : (
         <S.Button to='/signup'>Sign Up</S.Button>
+      ) : (
+        <S.Button to='/mypage'>My Page</S.Button>
       )}
     </S.Container>
   );
