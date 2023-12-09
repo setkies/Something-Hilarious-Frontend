@@ -3,7 +3,6 @@ import * as S from './style';
 import { Link } from 'react-router-dom';
 import useModal from 'hooks/useModal';
 import Registration from 'components/Registration';
-  
 import { useRecoilValue } from 'recoil';
 import userStore from 'store/user.store';
 
