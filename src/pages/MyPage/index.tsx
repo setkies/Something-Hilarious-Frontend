@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
   const navigate = useNavigate();
+
   const handleLogout = () => {
     navigate('/');
     localStorage.clear();
     window.location.reload();
   };
+
   return (
     <S.Contaienr>
       <Header />

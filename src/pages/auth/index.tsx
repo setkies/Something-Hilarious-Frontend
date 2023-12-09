@@ -9,18 +9,13 @@ const Auth = () => {
   useEffect(() => {
     (async () => {
       const code = searchParam.get('code');
-      // console.log(code);
       if (code) {
         try {
           const { data } = await instance.post('/auth/google', { code });
           console.log(data);
           if (data) {
             localStorage.setItem('accessToken', data.accessToken);
-            // console.log(localStorage.getItem('accessToken'));
-            // eslint-disable-next-line
-            // debugger;
             localStorage.setItem('refreshToken', data.refreshToken);
-            // console.log(localStorage.getItem('refreshToken'));
           }
         } catch (e) {
           console.log(e);
