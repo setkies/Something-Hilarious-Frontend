@@ -1,29 +1,35 @@
 import React, { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { instance } from '../../apis';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { instance } from 'apis';
 
 const Auth = () => {
   const [searchParam] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
       const code = searchParam.get('code');
+      // console.log(code);
       if (code) {
         try {
-          const { accessToken, refreshToken } = (
-            await instance.post('/auth/google', { code })
-          ).data;
-          console.log(accessToken, refreshToken);
-          localStorage.setItem('accessToken', accessToken);
-          localStorage.setItem('refreshToken', refreshToken);
+          const { data } = await instance.post('/auth/google', { code });
+          console.log(data);
+          if (data) {
+            console.log(data.accessToken, data.refreshToken);
+            localStorage.setItem('accessToken', data.accessToken);
+            // console.log(localStorage.getItem('accessToken'));
+            // eslint-disable-next-line
+            // debugger;
+            localStorage.setItem('refreshToken', data.refreshToken);
+            // console.log(localStorage.getItem('refreshToken'));
+          }
         } catch (e) {
           console.log(e);
         }
-        location.href = '/';
+        navigate('/');
       }
     })();
   }, [searchParam]);
-
   return <div></div>;
 };
 

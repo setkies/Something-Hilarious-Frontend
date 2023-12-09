@@ -10,10 +10,16 @@ interface Props {
 const AuthWrapper = ({ children }: Props) => {
   const setUser = useSetRecoilState(userStore);
   useEffect(() => {
-    (async () => {
-      const { userData } = (await instance.get('/user')).data;
-      setUser(userData);
-    })();
+    try {
+      (async () => {
+        const { data } = await instance.get('/user');
+        if (data?.userData) {
+          setUser(data.userData);
+        }
+      })();
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
   return <>{children}</>;
 };

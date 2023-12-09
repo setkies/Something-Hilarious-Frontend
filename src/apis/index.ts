@@ -2,7 +2,7 @@ import axios from 'axios';
 import { API_URL } from 'constants/config';
 
 export const instance = axios.create({
-  baseURL: 'http://sinp.kro.kr/api',
+  baseURL: API_URL,
 });
 
 instance.interceptors.request.use(
