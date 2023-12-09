@@ -56,3 +56,10 @@ export const Projects = styled.div`
   gap: 45px;
   flex-wrap: wrap;
 `;
+
+export const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;

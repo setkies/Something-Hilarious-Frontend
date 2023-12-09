@@ -15,7 +15,6 @@ const Auth = () => {
           const { data } = await instance.post('/auth/google', { code });
           console.log(data);
           if (data) {
-            console.log(data.accessToken, data.refreshToken);
             localStorage.setItem('accessToken', data.accessToken);
             // console.log(localStorage.getItem('accessToken'));
             // eslint-disable-next-line
