@@ -9,6 +9,7 @@ interface Props {
 
 const AuthWrapper = ({ children }: Props) => {
   const setUser = useSetRecoilState(userStore);
+
   useEffect(() => {
     try {
       (async () => {
