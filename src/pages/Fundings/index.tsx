@@ -3,23 +3,17 @@ import Header from 'components/Header';
 import * as S from './style';
 import FundingCard from 'components/FundingCard';
 import dummyData from 'fixtures/funding.dummy';
+import { useEffect } from 'react';
 
 const Funding = () => {
-  // useEffect(() => {
-  //   try {
-  //     (async () => {
-  //       const { data } = await instance.get('/project');
-  //       // if (data) {
-  //       // }
-  //     })();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
-
   return (
     <S.Container>
       <Header />
+      <S.Statuses>
+        <S.Status>펀딩 대기 중</S.Status>
+        <S.Status>펀딩 진행 중</S.Status>
+        <S.Status>펀딩 종료</S.Status>
+      </S.Statuses>
       <S.ProjectList>
         <S.Wrapper>
           {dummyData.map((data, index) => (

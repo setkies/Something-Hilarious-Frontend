@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import Header from 'components/Header';
 import * as S from './style';
@@ -6,11 +5,52 @@ import dummyData from 'fixtures/funding.dummy';
 import theme from 'styles/theme';
 import useModal from 'hooks/useModal';
 import FundingModal from 'components/FundingModal';
-// import testImg from 'assets/jpegs/test.jpeg';
+import { useEffect, useState } from 'react';
+import { instance } from 'apis';
 
-const Detail: React.FC = () => {
+interface AuthorType {
+  id: number;
+  name: string;
+  email: string;
+  profileImage: string;
+}
+
+interface DetailState {
+  name: string;
+  summary: string;
+  thumbnail: string;
+  introduceUrl: string;
+  status: 'PENDING' | 'PROCESS' | 'END';
+  targetFund: number;
+  fundEndTime: string;
+  author: AuthorType;
+}
+
+const Detail = () => {
   const { openModal, closeModal } = useModal();
   const { id } = useParams<{ id: string }>();
+  const [detail, setDetail] = useState<DetailState>({
+    name: '',
+    summary: '',
+    thumbnail: '',
+    introduceUrl: '',
+    status: 'PENDING',
+    targetFund: 0,
+    fundEndTime: '',
+    author: {
+      id: 0,
+      name: '',
+      email: '',
+      profileImage: '',
+    },
+  });
+
+  useEffect(() => {
+    instance.get(`project/${id}`).then((response) => {
+      setDetail(response.data);
+      console.log(response.data);
+    });
+  }, []);
 
   const modalOpen = () => {
     openModal({
