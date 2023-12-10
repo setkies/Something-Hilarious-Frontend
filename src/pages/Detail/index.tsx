@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import Header from 'components/Header';
 import * as S from './style';
-import dummyData from 'fixtures/funding.dummy';
 import theme from 'styles/theme';
 import useModal from 'hooks/useModal';
 import FundingModal from 'components/FundingModal';
@@ -29,28 +28,23 @@ interface DetailState {
 const Detail = () => {
   const { openModal, closeModal } = useModal();
   const { id } = useParams<{ id: string }>();
-  const [detail, setDetail] = useState<DetailState>({
-    name: '',
-    summary: '',
-    thumbnail: '',
-    introduceUrl: '',
-    status: 'PENDING',
-    targetFund: 0,
-    fundEndTime: '',
-    author: {
-      id: 0,
-      name: '',
-      email: '',
-      profileImage: '',
-    },
-  });
+  const [detail, setDetail] = useState<DetailState | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    instance.get(`project/${id}`).then((response) => {
-      setDetail(response.data);
-      console.log(response.data);
-    });
-  }, []);
+    if (id) {
+      instance
+        .get(`project/${id}`)
+        .then((response) => {
+          setDetail(response.data);
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.error(err);
+          setError('프로젝트를 불러오는 중 오류가 발생했습니다.');
+        });
+    }
+  }, [id]);
 
   const modalOpen = () => {
     openModal({
@@ -58,28 +52,25 @@ const Detail = () => {
     });
   };
 
-  if (!id) {
+  if (error) {
     return (
       <S.Container>
         <Header />
-        <S.Contents>그런 프로젝트는 없습니다!</S.Contents>
+        <S.Contents>{error}</S.Contents>
       </S.Container>
     );
   }
 
-  const fundingId = parseInt(id, 10);
-  const selectedData = dummyData.find((data) => data.id === fundingId);
-
-  if (!selectedData) {
+  if (!detail) {
     return (
       <S.Container>
         <Header />
-        <S.Contents>그런 프로젝트는 없습니다!</S.Contents>
+        <S.Contents>프로젝트 정보를 불러오는 중입니다...</S.Contents>
       </S.Container>
     );
   }
 
-  const fundraising = selectedData.fundraising
+  const fundraising = detail.targetFund
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
@@ -87,15 +78,15 @@ const Detail = () => {
     <S.Container>
       <Header />
       <S.Contents>
-        <S.Thumbnail />
+        <S.Thumbnail src={detail.thumbnail} alt={`${detail.name}의 썸네일`} />
         <S.Wrapper>
-          <S.Title>{selectedData.title}</S.Title>
+          <S.Title>{detail.name}</S.Title>
           <div>
-            <S.Description>{selectedData.description}</S.Description>
+            <S.Description>{detail.summary}</S.Description>
             <S.Progresses>
-              <S.Progress>{selectedData.people}명 참가중</S.Progress>
+              <S.Progress>펀딩 대기중</S.Progress>
               <S.Progress style={{ color: theme.black }}>
-                ({fundraising}원)
+                (목표 펀딩 금액: {fundraising}원)
               </S.Progress>
             </S.Progresses>
           </div>
@@ -104,10 +95,13 @@ const Detail = () => {
             <S.Button onClick={modalOpen}>지금 펀딩하기</S.Button>
           </div>
         </S.Wrapper>
-        {/* <S.Explanation>
-          <S.DescriptionImg src={testImg} />
-        </S.Explanation> */}
       </S.Contents>
+      <S.Explanation>
+        <S.DescriptionImg
+          src={detail.introduceUrl}
+          alt={`${detail.name}의 상세 설명`}
+        />
+      </S.Explanation>
     </S.Container>
   );
 };
