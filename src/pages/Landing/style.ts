@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { font } from 'styles/font';
 import theme from 'styles/theme';
@@ -58,7 +57,7 @@ export const Buttons = styled.div`
   margin-top: 46px;
 `;
 
-export const Button = styled(Link)`
+export const Button = styled.button`
   cursor: pointer;
   width: 220px;
   height: 56px;

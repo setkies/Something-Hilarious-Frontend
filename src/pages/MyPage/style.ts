@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { font } from 'styles/font';
 import theme from 'styles/theme';
 
-export const Contaienr = styled.div`
+export const Container = styled.div`
   width: 100vw;
   height: 100vh;
 `;

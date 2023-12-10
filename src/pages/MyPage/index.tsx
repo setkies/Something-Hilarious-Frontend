@@ -1,26 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import userStore from 'store/user.store';
+import { instance } from 'apis';
+import FundingCard from 'components/FundingCard';
 
 const MyPage = () => {
   const navigate = useNavigate();
   const user = useRecoilValue(userStore);
+  const [project, setProject] = useState([]); // Updated initialization
 
   if (!user) {
-    return <>error</>;
+    return <div>error</div>;
   }
 
   const handleLogout = () => {
-    navigate('/');
     localStorage.clear();
-    window.location.reload();
+    navigate('/');
   };
 
+  useEffect(() => {
+    const fetchProjectData = async () => {
+      try {
+        const { data } = await instance.get('/project/me');
+        if (data) {
+          setProject(data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchProjectData();
+  }, [instance, setProject]);
+
   return (
-    <S.Contaienr>
+    <S.Container>
       <Header />
       <S.Contents>
         <S.Wrapper>
@@ -36,9 +53,14 @@ const MyPage = () => {
         </S.Wallets>
         <S.Horizon />
         <S.Title>{user.name} 님의 프로젝트</S.Title>
-        <S.Projects></S.Projects>
+        <S.Projects>
+          {/* eslint-disable-next-line */}
+          {project.map((data, index) => (
+            <FundingCard key={index} data={data} />
+          ))}
+        </S.Projects>
       </S.Contents>
-    </S.Contaienr>
+    </S.Container>
   );
 };
 

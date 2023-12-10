@@ -81,9 +81,15 @@ export const ImageLabel = styled.label`
   border-radius: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
 `;
 
 export const InputImage = styled.img`
   height: 100%;
+`;
+
+export const Flex = styled.div`
+  display: flex;
+  gap: 10px;
 `;

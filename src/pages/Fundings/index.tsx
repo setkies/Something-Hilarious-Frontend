@@ -4,7 +4,19 @@ import * as S from './style';
 import FundingCard from 'components/FundingCard';
 import dummyData from 'fixtures/funding.dummy';
 
-const Funding: React.FC = () => {
+const Funding = () => {
+  // useEffect(() => {
+  //   try {
+  //     (async () => {
+  //       const { data } = await instance.get('/project');
+  //       // if (data) {
+  //       // }
+  //     })();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, []);
+
   return (
     <S.Container>
       <Header />

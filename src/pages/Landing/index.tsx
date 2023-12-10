@@ -1,8 +1,29 @@
 import theme from 'styles/theme';
 import Header from 'components/Header';
 import * as S from './style';
+import userStore from 'store/user.store';
+import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import useModal from 'hooks/useModal';
+import Registration from 'components/Registration';
 
 const Landing = () => {
+  const user = useRecoilValue(userStore);
+  const { openModal, closeModal } = useModal();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/');
+    localStorage.clear();
+    window.location.reload();
+  };
+
+  const modalOpen = () => {
+    openModal({
+      component: <Registration closeModal={closeModal} />,
+    });
+  };
+
   return (
     <S.Container>
       <Header />
@@ -20,11 +41,17 @@ const Landing = () => {
               color: theme.white,
               background: theme.black,
             }}
-            to='registration'
+            onClick={modalOpen}
           >
-            프로젝트 등록하러 가기
+            프로젝트 등록하기
           </S.Button>
-          <S.Button to='signup'>SINP 가입하기</S.Button>
+          {user ? (
+            <S.Button onClick={handleLogout}>로그아웃</S.Button>
+          ) : (
+            <S.Button onClick={() => navigate('/signup')}>
+              SINP 가입하기
+            </S.Button>
+          )}
         </S.Buttons>
       </S.Contents>
       <img />
