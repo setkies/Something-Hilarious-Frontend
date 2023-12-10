@@ -43,7 +43,7 @@ const Landing = () => {
             }}
             onClick={modalOpen}
           >
-            프로젝트 등록하러 가기
+            프로젝트 등록하기
           </S.Button>
           {user ? (
             <S.Button onClick={handleLogout}>로그아웃</S.Button>

@@ -55,7 +55,7 @@ const MyPage = () => {
         <S.Title>{user.name} 님의 프로젝트</S.Title>
         <S.Projects>
           {/* eslint-disable-next-line */}
-          {project.map((data: any, index: number) => (
+          {project.map((data, index) => (
             <FundingCard key={index} data={data} />
           ))}
         </S.Projects>
