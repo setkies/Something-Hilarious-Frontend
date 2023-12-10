@@ -41,13 +41,29 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
     field: keyof RegistrationState,
   ) => {
     const file = event.target.files?.[0];
+
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setRegistrationData({ ...registrationData, [field]: base64String });
-      };
-      reader.readAsDataURL(file);
+      const imageUrl = URL.createObjectURL(file);
+      setRegistrationData({ ...registrationData, [field]: imageUrl });
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const blob = new Blob(
+        [
+          JSON.stringify({
+            name: file.name,
+            type: file.type,
+            size: file.size,
+          }),
+        ],
+        {
+          type: 'application/json',
+        },
+      );
+
+      formData.append('data', blob);
+      setRegistrationData({ ...registrationData, [field]: formData });
     }
   };
 

@@ -10,7 +10,7 @@ import FundingCard from 'components/FundingCard';
 const MyPage = () => {
   const navigate = useNavigate();
   const user = useRecoilValue(userStore);
-  const [project, setProject] = useState([]); // Updated initialization
+  const [project, setProject] = useState([]);
 
   if (!user) {
     return <div>error</div>;

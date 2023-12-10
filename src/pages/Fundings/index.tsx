@@ -10,11 +10,11 @@ const Funding = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    const queryParams = {
-      page: 0,
-      size: 1,
-      sort: ['string'],
-    };
+    // const queryParams = {
+    //   page: 0,
+    //   size: 1,
+    //   sort: ['string'],
+    // };
 
     instance
       .get(`/project?status=${status}`)
