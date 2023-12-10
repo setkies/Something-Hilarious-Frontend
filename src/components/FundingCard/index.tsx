@@ -3,7 +3,7 @@ import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 
 interface FundingCardProps {
-  data: { title: string; description: string; id: number };
+  data: { name: string; summary: string; id: number };
 }
 
 const FundingCard: React.FC<FundingCardProps> = ({ data }) => {
@@ -19,8 +19,8 @@ const FundingCard: React.FC<FundingCardProps> = ({ data }) => {
         <S.Image />
       </S.ImageContainer>
       <S.InfoContainer>
-        <S.Title>{data.title}</S.Title>
-        <S.Description>{data.description}</S.Description>
+        <S.Title>{data.name}</S.Title>
+        <S.Description>{data.summary}</S.Description>
       </S.InfoContainer>
     </S.Container>
   );
