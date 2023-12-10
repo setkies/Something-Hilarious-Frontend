@@ -3,27 +3,30 @@ import CloseIcon from 'assets/svgs/Close';
 import * as S from './style';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { instance } from 'apis';
 
 interface GenerateModalProps {
   closeModal: () => void;
 }
 
 interface RegistrationState {
-  projectName: string;
-  projectDescription: string;
+  name: string;
+  summary: string;
   thumbnail: string;
-  additionalImage: string;
-  fundingGoal: number;
+  introduceUrl: string;
+  targetFund: number;
+  fundEndTime: string;
 }
 
 const Registration = ({ closeModal }: GenerateModalProps) => {
   const [tab, setTab] = useState<boolean>(true);
   const [registrationData, setRegistrationData] = useState<RegistrationState>({
-    projectName: '',
-    projectDescription: '',
+    name: '',
+    summary: '',
     thumbnail: '',
-    additionalImage: '',
-    fundingGoal: 1000,
+    introduceUrl: '',
+    targetFund: 1000,
+    fundEndTime: '',
   });
 
   const handleInputChange = (
@@ -44,20 +47,17 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
     }
   };
 
-  const handleRegistration = () => {
+  const handleRegistration = async () => {
     const isEmpty = Object.values(registrationData).some((value) => !value);
     if (isEmpty) {
-      toast.warn('모든 필드를 채워주세요.', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.warn('모든 필드를 채워주세요.');
       return;
     }
 
     console.log('Registration Data:', registrationData);
+    await instance.post('/project', registrationData);
     closeModal();
-    toast.success('프로젝트가 성공적으로 등록되었습니다.', {
-      position: toast.POSITION.TOP_CENTER,
-    });
+    toast.success('프로젝트가 성공적으로 등록되었습니다.');
   };
 
   return (
@@ -72,14 +72,14 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
           <S.Body>프로젝트 이름</S.Body>
           <S.Input
             placeholder='이름 입력해주세요.'
-            value={registrationData.projectName}
-            onChange={(e) => handleInputChange(e, 'projectName')}
+            value={registrationData.name}
+            onChange={(e) => handleInputChange(e, 'name')}
           />
           <S.Body>프로젝트 설명</S.Body>
           <S.TextArea
             placeholder='프로젝트에 대한 설명을 입력해주세요.'
-            value={registrationData.projectDescription}
-            onChange={(e) => handleInputChange(e, 'projectDescription')}
+            value={registrationData.summary}
+            onChange={(e) => handleInputChange(e, 'summary')}
           />
           <S.Wrapper>
             <div />
@@ -120,8 +120,8 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
                   추가로 이미지를 업로드해주세요.
                 </S.Body>
                 <S.ImageLabel htmlFor='file2'>
-                  {registrationData.additionalImage ? (
-                    <S.InputImage src={registrationData.additionalImage} />
+                  {registrationData.introduceUrl ? (
+                    <S.InputImage src={registrationData.introduceUrl} />
                   ) : (
                     '파일 선택하기'
                   )}
@@ -129,20 +129,27 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
                 <input
                   type='file'
                   id='file2'
-                  onChange={(e) => handleFileChange(e, 'additionalImage')}
+                  onChange={(e) => handleFileChange(e, 'introduceUrl')}
                   style={{ display: 'none' }}
                 />
               </S.UploadImage>
             </div>
           </S.Flex>
-          <S.Body style={{ marginTop: '30px' }}>목표 펀딩 금액</S.Body>
+          <S.Body>목표 펀딩 금액</S.Body>
           <S.Input
             type='number'
             min='1000'
             placeholder='목표 펀딩 금액을 입력해주세요. (최소 1,000원)'
-            value={registrationData.fundingGoal}
-            onChange={(e) => handleInputChange(e, 'fundingGoal')}
-            style={{ marginBottom: '100px' }}
+            value={registrationData.targetFund}
+            onChange={(e) => handleInputChange(e, 'targetFund')}
+            style={{ marginBottom: '20px' }}
+          />
+          <S.Body>펀딩 종료 시간</S.Body>
+          <S.Input
+            type='datetime-local'
+            placeholder='펀딩 종료 시간을 입력해주세요.'
+            value={registrationData.fundEndTime}
+            onChange={(e) => handleInputChange(e, 'fundEndTime')}
           />
           <S.Wrapper>
             <S.Button onClick={() => setTab((prev) => !prev)}>
