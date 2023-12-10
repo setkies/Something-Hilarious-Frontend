@@ -41,9 +41,29 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
     field: keyof RegistrationState,
   ) => {
     const file = event.target.files?.[0];
+
     if (file) {
-      const fileUrl = URL.createObjectURL(file);
-      setRegistrationData({ ...registrationData, [field]: fileUrl });
+      const imageUrl = URL.createObjectURL(file);
+      setRegistrationData({ ...registrationData, [field]: imageUrl });
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const blob = new Blob(
+        [
+          JSON.stringify({
+            name: file.name,
+            type: file.type,
+            size: file.size,
+          }),
+        ],
+        {
+          type: 'application/json',
+        },
+      );
+
+      formData.append('data', blob);
+      setRegistrationData({ ...registrationData, [field]: formData });
     }
   };
 

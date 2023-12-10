@@ -16,7 +16,7 @@ export const Contents = styled.div`
   display: flex;
 `;
 
-export const Thumbnail = styled.div`
+export const Thumbnail = styled.img`
   width: 600px;
   height: 350px;
   border-radius: 10px;
@@ -78,4 +78,7 @@ export const DescriptionImg = styled.img`
 
 export const Explanation = styled.div`
   width: 100%;
+  margin-top: 50px;
+  padding: 0 130px;
+  box-sizing: border-box;
 `;
