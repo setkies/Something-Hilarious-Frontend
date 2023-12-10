@@ -42,8 +42,12 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
   ) => {
     const file = event.target.files?.[0];
     if (file) {
-      const fileUrl = URL.createObjectURL(file);
-      setRegistrationData({ ...registrationData, [field]: fileUrl });
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setRegistrationData({ ...registrationData, [field]: base64String });
+      };
+      reader.readAsDataURL(file);
     }
   };
 
