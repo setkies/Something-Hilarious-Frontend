@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import userStore from 'store/user.store';
 import { instance } from 'apis';
-import ProjectBox from 'components/ProjectBox';
+import FundingCard from 'components/FundingCard';
 
 const MyPage = () => {
   const navigate = useNavigate();
   const user = useRecoilValue(userStore);
-  const [project, setProject] = useState(null);
+  const [project, setProject] = useState([]); // Updated initialization
 
   if (!user) {
     return <div>error</div>;
@@ -54,7 +54,10 @@ const MyPage = () => {
         <S.Horizon />
         <S.Title>{user.name} 님의 프로젝트</S.Title>
         <S.Projects>
-          <ProjectBox />
+          {/* eslint-disable-next-line */}
+          {project.map((data: any, index: number) => (
+            <FundingCard key={index} data={data} />
+          ))}
         </S.Projects>
       </S.Contents>
     </S.Container>
