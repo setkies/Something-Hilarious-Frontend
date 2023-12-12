@@ -35,6 +35,7 @@ const Detail = () => {
   const [error, setError] = useState<string | null>(null);
   const user = useRecoilValue(userStore);
   const [isAuthor, setIsAuthor] = useState<boolean>(false);
+  const [isTrue, setIsTure] = useState<boolean>(false);
 
   useEffect(() => {
     if (id) {
@@ -85,6 +86,12 @@ const Detail = () => {
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
+  const EditProject = () => {
+    openModal;
+  };
+
+  const DeleteProject = () => {};
+
   return (
     <S.Container>
       <Header />
@@ -93,7 +100,23 @@ const Detail = () => {
         <S.Wrapper>
           <S.Flex>
             <S.Title>{detail.name}</S.Title>
-            {isAuthor ? <Dots /> : <></>}
+            {isAuthor ? (
+              <>
+                <Dots onClick={() => setIsTure((prev) => !prev)} />
+                {isTrue ? (
+                  <S.DropdownContainer>
+                    <S.Options>
+                      <S.Option onClick={EditProject}>수정</S.Option>
+                      <S.Option onClick={DeleteProject}>삭제</S.Option>
+                    </S.Options>
+                  </S.DropdownContainer>
+                ) : (
+                  <></>
+                )}
+              </>
+            ) : (
+              <></>
+            )}
           </S.Flex>
           <div>
             <S.Description>{detail.summary}</S.Description>
