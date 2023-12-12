@@ -35,7 +35,7 @@ const FundingModal: React.FC<GenerateModalProps> = ({ closeModal }) => {
     if (fundingAmount > userMoney) {
       toast.error('돈이 부족합니다.');
     } else {
-      // instance.post("")
+      instance.post('/funding', fundingAmount);
       toast.success('펀딩이 완료되었습니다.');
     }
   };
