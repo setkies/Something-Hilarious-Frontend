@@ -9,6 +9,7 @@ import { instance } from 'apis';
 import { useRecoilValue } from 'recoil';
 import userStore from 'store/user.store';
 import Dots from 'assets/svgs/Dots';
+import EditProjectModal from 'components/EditProjectModal';
 
 interface AuthorType {
   id: number;
@@ -87,7 +88,9 @@ const Detail = () => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   const EditProject = () => {
-    openModal;
+    openModal({
+      component: <EditProjectModal closeModal={closeModal} />,
+    });
   };
 
   const DeleteProject = () => {};

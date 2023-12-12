@@ -1,11 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import CloseIcon from 'assets/svgs/Close';
 import * as S from './style';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { instance } from 'apis';
-import axios from 'axios';
-import styled from 'styled-components';
 
 interface GenerateModalProps {
   closeModal: () => void;
@@ -20,16 +18,13 @@ interface RegistrationState {
   fundEndTime: string;
 }
 
-const Registration = ({ closeModal }: GenerateModalProps) => {
+const EditProjectModal = ({ closeModal }: GenerateModalProps) => {
   const [tab, setTab] = useState<boolean>(true);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [thumbnail, setThumbnail] = useState<string>('');
-  const [introduceUrl, setIntroduceUrl] = useState<string>('');
   const [registrationData, setRegistrationData] = useState<RegistrationState>({
     name: '',
     summary: '',
-    thumbnail: thumbnail,
-    introduceUrl: introduceUrl,
+    thumbnail: '',
+    introduceUrl: '',
     targetFund: 1000,
     fundEndTime: '',
   });
@@ -41,44 +36,35 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
     setRegistrationData({ ...registrationData, [field]: event.target.value });
   };
 
-  const onUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
-      return;
-    }
+  const handleFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    field: keyof RegistrationState,
+  ) => {
+    const file = event.target.files?.[0];
 
-    const formData = new FormData();
-    formData.append('image', e.target.files[0]);
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setRegistrationData({ ...registrationData, [field]: imageUrl });
 
-    axios
-      .post('https://newbsm.team-insert.com/api/image/save', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const blob = new Blob(
+        [
+          JSON.stringify({
+            name: file.name,
+            type: file.type,
+            size: file.size,
+          }),
+        ],
+        {
+          type: 'application/json',
         },
-      })
-      .then((res) => {
-        registrationData.thumbnail = res.data;
-        console.log(registrationData);
-      });
-  };
+      );
 
-  const onUploadThumbnail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
-      return;
+      formData.append('data', blob);
+      setRegistrationData({ ...registrationData, [field]: formData });
     }
-
-    const formData = new FormData();
-    formData.append('image', e.target.files[0]);
-
-    axios
-      .post('https://newbsm.team-insert.com/api/image/save', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then((res) => {
-        registrationData.introduceUrl = res.data;
-        console.log(registrationData);
-      });
   };
 
   const handleRegistration = async () => {
@@ -88,20 +74,10 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
       return;
     }
 
-    try {
-      console.log('Registration Data:', registrationData);
-      await instance.post('/project', registrationData);
-      closeModal();
-      toast.success('프로젝트가 성공적으로 등록되었습니다.');
-    } catch (error) {
-      toast.error('등록 중 오류가 발생했습니다.');
-    }
-  };
-
-  const onImageClick = () => {
-    if (inputRef.current) {
-      inputRef.current.click();
-    }
+    console.log('Registration Data:', registrationData);
+    await instance.put('/project', registrationData);
+    closeModal();
+    toast.success('프로젝트가 성공적으로 등록되었습니다.');
   };
 
   return (
@@ -149,43 +125,33 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
                     <h1>파일 선택하기</h1>
                   )}
                 </S.ImageLabel>
-                <Button onClick={onImageClick}></Button>
-                <label htmlFor='fileInput'>
-                  <input
-                    id='fileInput'
-                    type='file'
-                    accept='image/*'
-                    ref={inputRef}
-                    onChange={onUploadImage}
-                    style={{ display: 'none' }}
-                  />
-                </label>
+                <input
+                  type='file'
+                  id='file1'
+                  onChange={(e) => handleFileChange(e, 'thumbnail')}
+                  style={{ display: 'none' }}
+                />
               </S.UploadImage>
             </div>
             <div>
               <S.Body>추가 사진</S.Body>
               <S.UploadImage>
                 <S.Body style={{ background: 'none', cursor: 'pointer' }}>
-                  추가 사진을 업로드해주세요.
+                  추가로 이미지를 업로드해주세요.
                 </S.Body>
-                <S.ImageLabel htmlFor='file1'>
-                  {registrationData.thumbnail ? (
+                <S.ImageLabel htmlFor='file2'>
+                  {registrationData.introduceUrl ? (
                     <S.InputImage src={registrationData.introduceUrl} />
                   ) : (
-                    <h1>파일 선택하기</h1>
+                    '파일 선택하기'
                   )}
                 </S.ImageLabel>
-                <Button onClick={onImageClick}></Button>
-                <label htmlFor='fileInput'>
-                  <input
-                    id='fileInput'
-                    type='file'
-                    accept='image/*'
-                    ref={inputRef}
-                    onChange={onUploadThumbnail}
-                    style={{ display: 'none' }}
-                  />
-                </label>
+                <input
+                  type='file'
+                  id='file2'
+                  onChange={(e) => handleFileChange(e, 'introduceUrl')}
+                  style={{ display: 'none' }}
+                />
               </S.UploadImage>
             </div>
           </S.Flex>
@@ -218,11 +184,4 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
   );
 };
 
-export default Registration;
-
-const Button = styled.button`
-  width: 200px;
-  height: 200px;
-  background-color: pink;
-  z-index: 5;
-`;
+export default EditProjectModal;
