@@ -23,8 +23,6 @@ interface RegistrationState {
 const Registration = ({ closeModal }: GenerateModalProps) => {
   const [tab, setTab] = useState<boolean>(true);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [thumbnail, setThumbnail] = useState<string>('');
-  const [introduceUrl, setIntroduceUrl] = useState<string>('');
   const [registrationData, setRegistrationData] = useState<RegistrationState>({
     name: '',
     summary: '',

@@ -37,7 +37,7 @@ const Detail = () => {
   const [detail, setDetail] = useState<DetailState | null>(null);
   const [error, setError] = useState<string | null>(null);
   const user = useRecoilValue(userStore);
-  const [isAuthor, setIsAuthor] = useState<boolean>(false);
+  const [isAuthor, setIsAuthor] = useState<boolean>(true);
   const [isTrue, setIsTure] = useState<boolean>(false);
 
   useEffect(() => {
@@ -56,8 +56,8 @@ const Detail = () => {
   }, [id]);
 
   useEffect(() => {
-    if (detail?.author.id && user?.id) {
-      setIsAuthor((prev) => !prev);
+    if (detail && user) {
+      setIsAuthor(detail.author.id === user.id);
     }
   }, [detail, user]);
 
@@ -144,7 +144,7 @@ const Detail = () => {
           </div>
           <div>
             <S.Horizon />
-            {isAuthor ? (
+            {!isAuthor ? (
               <S.Button onClick={modalOpen}>지금 펀딩하기</S.Button>
             ) : (
               <S.Button onClick={FundingHistory}>펀딩 내역 보기</S.Button>
