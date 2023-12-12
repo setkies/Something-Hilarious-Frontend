@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import CloseIcon from 'assets/svgs/Close';
 import * as S from './style';
 import { toast } from 'react-toastify';
@@ -9,6 +9,7 @@ import styled from 'styled-components';
 
 interface GenerateModalProps {
   closeModal: () => void;
+  id?: string;
 }
 
 interface RegistrationState {
@@ -20,7 +21,7 @@ interface RegistrationState {
   fundEndTime: string;
 }
 
-const Registration = ({ closeModal }: GenerateModalProps) => {
+const EditProjectModal = ({ closeModal, id }: GenerateModalProps) => {
   const [tab, setTab] = useState<boolean>(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const [registrationData, setRegistrationData] = useState<RegistrationState>({
@@ -32,6 +33,20 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
     fundEndTime: '',
   });
 
+  useEffect(() => {
+    if (id) {
+      instance
+        .get(`/project/${id}`)
+        .then((response) => {
+          setRegistrationData(response.data);
+        })
+        .catch((error) => {
+          console.error('Error loading project data:', error);
+          toast.error('프로젝트 데이터를 불러오는 데 실패했습니다.');
+        });
+    }
+  }, [id]);
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     field: keyof RegistrationState,
@@ -39,27 +54,11 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
     setRegistrationData({ ...registrationData, [field]: event.target.value });
   };
 
-  const onUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('image', e.target.files[0]);
-
-    axios
-      .post('https://newbsm.team-insert.com/api/image/save', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then((res) => {
-        registrationData.thumbnail = res.data;
-        console.log(registrationData);
-      });
+  const updateImageData = (field: keyof RegistrationState, data: string) => {
+    setRegistrationData((prevData) => ({ ...prevData, [field]: data }));
   };
 
-  const onUploadThumbnail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
       return;
     }
@@ -67,46 +66,68 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
     const formData = new FormData();
     formData.append('image', e.target.files[0]);
 
-    axios
-      .post('https://newbsm.team-insert.com/api/image/save', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+    try {
+      const res = await axios.post(
+        'https://newbsm.team-insert.com/api/image/save',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      })
-      .then((res) => {
-        registrationData.introduceUrl = res.data;
-        console.log(registrationData);
-      });
+      );
+      updateImageData('thumbnail', res.data);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error('이미지 업로드에 실패했습니다.');
+    }
+  };
+
+  const onUploadThumbnail = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+
+    try {
+      const res = await axios.post(
+        'https://newbsm.team-insert.com/api/image/save',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
+      updateImageData('introduceUrl', res.data);
+    } catch (error) {
+      console.error('Error uploading additional image:', error);
+      toast.error('추가 이미지 업로드에 실패했습니다.');
+    }
   };
 
   const handleRegistration = async () => {
-    const isEmpty = Object.values(registrationData).some((value) => !value);
-    if (isEmpty) {
-      toast.warn('모든 필드를 채워주세요.');
-      return;
-    }
-
     try {
-      console.log('Registration Data:', registrationData);
-      await instance.post('/project', registrationData);
+      await instance.put(`/project/${id}`, registrationData);
       closeModal();
-      toast.success('프로젝트가 성공적으로 등록되었습니다.');
+      toast.success('프로젝트가 성공적으로 수정되었습니다.');
     } catch (error) {
-      toast.error('등록 중 오류가 발생했습니다.');
+      console.error('Error updating project:', error);
+      toast.error('프로젝트 수정 중 오류가 발생했습니다.');
     }
   };
 
   const onImageClick = () => {
-    if (inputRef.current) {
-      inputRef.current.click();
-    }
+    inputRef.current?.click();
   };
 
   return (
     <S.Container>
       <S.Wrapper>
         <div />
-        <S.Title>프로젝트 등록하기</S.Title>
+        <S.Title>프로젝트 수정하기</S.Title>
         <CloseIcon onClick={closeModal} />
       </S.Wrapper>
       {tab ? (
@@ -170,10 +191,9 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
                   {registrationData.thumbnail ? (
                     <S.InputImage src={registrationData.introduceUrl} />
                   ) : (
-                    <h1>파일 선택하기</h1>
+                    <Button onClick={onImageClick}></Button>
                   )}
                 </S.ImageLabel>
-                <Button onClick={onImageClick}></Button>
                 <label htmlFor='fileInput'>
                   <input
                     id='fileInput'
@@ -216,7 +236,7 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
   );
 };
 
-export default Registration;
+export default EditProjectModal;
 
 const Button = styled.button`
   width: 200px;

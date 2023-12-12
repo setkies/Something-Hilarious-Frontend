@@ -82,3 +82,35 @@ export const Explanation = styled.div`
   padding: 0 130px;
   box-sizing: border-box;
 `;
+
+export const Flex = styled.div`
+  width: 120%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const DropdownContainer = styled.div`
+  position: absolute;
+  margin: 2rem 460px 0.5rem;
+`;
+
+export const Options = styled.div`
+  width: 120px;
+  z-index: 3;
+  background-color: ${theme.white};
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  text-decoration: none;
+`;
+
+export const Option = styled.div`
+  color: ${theme.black};
+  padding: 8px 16px;
+  cursor: pointer;
+  ${font.$p2};
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: ${theme.grey[200]};
+  }
+`;

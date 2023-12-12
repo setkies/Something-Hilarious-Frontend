@@ -7,8 +7,6 @@ import { useRecoilValue } from 'recoil';
 import userStore from 'store/user.store';
 import { instance } from 'apis';
 
-// user 객체와 그 안의 wallet 객체를 포함하는 타입을 정의해야 합니다.
-
 interface GenerateModalProps {
   closeModal: () => void;
 }
@@ -35,7 +33,7 @@ const FundingModal: React.FC<GenerateModalProps> = ({ closeModal }) => {
     if (fundingAmount > userMoney) {
       toast.error('돈이 부족합니다.');
     } else {
-      // instance.post("")
+      instance.post('/funding', fundingAmount);
       toast.success('펀딩이 완료되었습니다.');
     }
   };
