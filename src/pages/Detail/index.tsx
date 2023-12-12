@@ -6,6 +6,9 @@ import useModal from 'hooks/useModal';
 import FundingModal from 'components/FundingModal';
 import { useEffect, useState } from 'react';
 import { instance } from 'apis';
+import { useRecoilValue } from 'recoil';
+import userStore from 'store/user.store';
+import Dots from 'assets/svgs/Dots';
 
 interface AuthorType {
   id: number;
@@ -30,6 +33,8 @@ const Detail = () => {
   const { id } = useParams<{ id: string }>();
   const [detail, setDetail] = useState<DetailState | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const user = useRecoilValue(userStore);
+  const [isAuthor, setIsAuthor] = useState<boolean>(false);
 
   useEffect(() => {
     if (id) {
@@ -45,6 +50,12 @@ const Detail = () => {
         });
     }
   }, [id]);
+
+  useEffect(() => {
+    if (detail?.author.id && user?.id) {
+      setIsAuthor((prev) => !prev);
+    }
+  }, [detail, user]);
 
   const modalOpen = () => {
     openModal({
@@ -80,7 +91,10 @@ const Detail = () => {
       <S.Contents>
         <S.Thumbnail src={detail.thumbnail} alt={`${detail.name}의 썸네일`} />
         <S.Wrapper>
-          <S.Title>{detail.name}</S.Title>
+          <S.Flex>
+            <S.Title>{detail.name}</S.Title>
+            {isAuthor ? <Dots /> : <></>}
+          </S.Flex>
           <div>
             <S.Description>{detail.summary}</S.Description>
             <S.Progresses>

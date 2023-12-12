@@ -82,3 +82,9 @@ export const Explanation = styled.div`
   padding: 0 130px;
   box-sizing: border-box;
 `;
+
+export const Flex = styled.div`
+  width: 120%;
+  display: flex;
+  justify-content: space-between;
+`;
