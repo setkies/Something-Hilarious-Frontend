@@ -28,8 +28,8 @@ const Registration = ({ closeModal }: GenerateModalProps) => {
   const [registrationData, setRegistrationData] = useState<RegistrationState>({
     name: '',
     summary: '',
-    thumbnail: thumbnail,
-    introduceUrl: introduceUrl,
+    thumbnail: '',
+    introduceUrl: '',
     targetFund: 1000,
     fundEndTime: '',
   });
