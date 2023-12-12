@@ -11,6 +11,7 @@ import userStore from 'store/user.store';
 import Dots from 'assets/svgs/Dots';
 import EditProjectModal from 'components/EditProjectModal';
 import DeleteProjcetModal from 'components/DeleteProjectModal';
+import FundingHistoryModal from 'components/FundingHistoryModal';
 
 interface AuthorType {
   id: number;
@@ -100,6 +101,12 @@ const Detail = () => {
     });
   };
 
+  const FundingHistory = () => {
+    openModal({
+      component: <FundingHistoryModal closeModal={closeModal} id={id} />,
+    });
+  };
+
   return (
     <S.Container>
       <Header />
@@ -137,7 +144,11 @@ const Detail = () => {
           </div>
           <div>
             <S.Horizon />
-            <S.Button onClick={modalOpen}>지금 펀딩하기</S.Button>
+            {isAuthor ? (
+              <S.Button onClick={modalOpen}>지금 펀딩하기</S.Button>
+            ) : (
+              <S.Button onClick={FundingHistory}>펀딩 내역 보기</S.Button>
+            )}
           </div>
         </S.Wrapper>
       </S.Contents>
