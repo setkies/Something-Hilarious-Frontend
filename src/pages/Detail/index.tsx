@@ -10,6 +10,7 @@ import { useRecoilValue } from 'recoil';
 import userStore from 'store/user.store';
 import Dots from 'assets/svgs/Dots';
 import EditProjectModal from 'components/EditProjectModal';
+import DeleteProjcetModal from 'components/DeleteProjectModal';
 
 interface AuthorType {
   id: number;
@@ -93,7 +94,11 @@ const Detail = () => {
     });
   };
 
-  const DeleteProject = () => {};
+  const DeleteProject = () => {
+    openModal({
+      component: <DeleteProjcetModal closeModal={closeModal} id={id} />,
+    });
+  };
 
   return (
     <S.Container>
