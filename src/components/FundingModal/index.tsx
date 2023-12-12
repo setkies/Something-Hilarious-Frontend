@@ -7,8 +7,6 @@ import { useRecoilValue } from 'recoil';
 import userStore from 'store/user.store';
 import { instance } from 'apis';
 
-// user 객체와 그 안의 wallet 객체를 포함하는 타입을 정의해야 합니다.
-
 interface GenerateModalProps {
   closeModal: () => void;
 }

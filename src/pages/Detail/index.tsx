@@ -89,7 +89,7 @@ const Detail = () => {
 
   const EditProject = () => {
     openModal({
-      component: <EditProjectModal closeModal={closeModal} />,
+      component: <EditProjectModal closeModal={closeModal} id={id} />,
     });
   };
 
