@@ -14,7 +14,7 @@ const SignUp = () => {
       <S.Box>
         <S.Google
           href={
-            'https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=970720182911-59gd0mpq1r4aojrmcsn7t7jr6hu7p1q2.apps.googleusercontent.com&redirect_uri=http://localhost:3000/auth/google&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow'
+            'https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=970720182911-59gd0mpq1r4aojrmcsn7t7jr6hu7p1q2.apps.googleusercontent.com&redirect_uri=https://sinp.kro.kr/auth/google&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow'
           }
         >
           <S.Wraaper>
