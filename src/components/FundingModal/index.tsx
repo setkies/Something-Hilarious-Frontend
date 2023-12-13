@@ -9,9 +9,15 @@ import { instance } from 'apis';
 
 interface GenerateModalProps {
   closeModal: () => void;
+  id?: string;
 }
 
-const FundingModal: React.FC<GenerateModalProps> = ({ closeModal }) => {
+interface FundingTypes {
+  id: string;
+  money: number;
+}
+
+const FundingModal = ({ closeModal, id }: GenerateModalProps) => {
   const [fundingAmount, setFundingAmount] = useState<number>(0);
   const user = useRecoilValue(userStore);
 
@@ -24,17 +30,26 @@ const FundingModal: React.FC<GenerateModalProps> = ({ closeModal }) => {
     }
   };
 
-  const handleFunding = () => {
+  const handleFunding = async () => {
     if (fundingAmount === 0) {
       toast.error('금액을 입력해주세요.');
       return;
     }
+
     const userMoney = user?.wallet?.money ?? 0;
+
     if (fundingAmount > userMoney) {
       toast.error('돈이 부족합니다.');
     } else {
-      instance.post('/funding', fundingAmount);
-      toast.success('펀딩이 완료되었습니다.');
+      try {
+        const projectId = id || 0;
+        await instance.post('/funding', { projectId, money: fundingAmount });
+
+        toast.success('펀딩이 완료되었습니다.');
+      } catch (error) {
+        console.error('Error while funding:', error);
+        toast.error('펀딩 중 오류가 발생했습니다.');
+      }
     }
   };
 

@@ -63,7 +63,7 @@ const Detail = () => {
 
   const modalOpen = () => {
     openModal({
-      component: <FundingModal closeModal={closeModal} />,
+      component: <FundingModal closeModal={closeModal} id={id} />,
     });
   };
 
@@ -144,7 +144,7 @@ const Detail = () => {
           </div>
           <div>
             <S.Horizon />
-            {!isAuthor ? (
+            {isAuthor ? (
               <S.Button onClick={modalOpen}>지금 펀딩하기</S.Button>
             ) : (
               <S.Button onClick={FundingHistory}>펀딩 내역 보기</S.Button>
